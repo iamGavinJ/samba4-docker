@@ -1,0 +1,18 @@
+version: '2'
+services:
+  samba4:
+    container_name: samba4
+    image: iamgavinj/samba4
+    restart: unless-stopped
+    environment:
+      - TZ=America/Los_Angeles
+    networks:
+      physical:
+        ipv4_address: 10.1.0.9
+    hostname: nas.corp.scurr.me
+    volumes:
+      - /zdata/Media:/Media
+
+networks:
+  physical:
+    external: true
