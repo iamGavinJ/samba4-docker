@@ -1,0 +1,7 @@
+docker run -it \
+  --network macvlan \
+  --ip 10.1.0.9 \
+  --name samba4 \
+  --volume /zdata/Media:/Media \
+  4b567f0b7daf \
+  ash
