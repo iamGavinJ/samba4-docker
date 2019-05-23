@@ -1,10 +1,10 @@
-FROM alpine as build
+FROM alpine:edge as build
 ARG SMB_VERSION
 ENV SMB_VERSION ${SMB_VERSION:-4.10.3}
 
 ENV WORKDIR /root
 ENV BUILDDIR ${WORKDIR}/build
-ENV DESTDIR ${WORKDIR}/install
+ENV DESTDIR /opt
 #ENV PIDDIR "/var/run/unbound"
 
 WORKDIR ${WORKDIR}
@@ -17,18 +17,54 @@ RUN \
         tzdata \
         build-base \
         python3-dev \
-        py3-distutils-extra \
+        \
+        musl-dev \
+        acl-dev \
+        attr-dev \
+        krb5-dev \
+        libaio-dev \
+        libcap-dev \
+        cyrus-sasl-dev \
+        linux-pam-dev \
+        zlib-dev \
+        libtirpc-dev \
+        libnsl-dev \
+        valgrind-dev \
+        readline-dev \
+        \
+        libbsd-dev \
+        \
         perl \
         perl-dev \
-        attr-dev \
-        acl-dev \
-        ncurses-dev \
-        gnutls \
-        libtirpc-dev \
+        \
+        cmocka-dev \
+        libxslt-dev \
+        popt-dev \
+        docbook-xsl \
+        talloc-dev \
+        tevent-dev \
+        py3-tevent \
+        \
+        lmdb-dev \
+        \
+        gnutls-dev \
+        libgcrypt-dev \
+        gpgme-dev \
+        \
+        libexecinfo-dev \
+        libunwind-dev \
+        lttng-ust-dev \
         jansson-dev \
+        gnu-libiconv-dev \
+        \
+        gamin-dev \
         libarchive-dev \
-        binutils-dev \
-        rpcgen && \
+        avahi-dev \
+        cups-dev \
+        ncurses-dev \
+        \
+        rpcgen \
+        && \
     ln -s /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 
 RUN \ 
@@ -39,26 +75,12 @@ RUN \
 RUN \ 
     echo "**** configure source ****" && \
     cd "${BUILDDIR}" && \
-    ./configure \
-        --prefix="${DESTDIR}" \
-        --enable-gnutls \
-        --with-static-modules=ALL \
-        --without-winbind \
-        --without-ads \
-        --without-ldap \
-        --disable-cups \
-        --disable-iprint \
-        --without-quotas \
-        --without-fake-kaserver \
-        --disable-glusterfs \
-        --disable-cephfs \
+    ./configure CPPFLAGS="-I/usr/include/tirpc/" \
         --without-systemd \
+        --without-ldap \
+        --without-ads \
         --accel-aes=intelaesni \
-        --without-ad-dc \
-        --without-ntvfs-fileserver \
-        --with-json \
-        --without-pam \
-        --disable-python
+        --prefix="${DESTDIR}" 
 
 COPY [ "wscript.patch", "netdb.h.patch", "${WORKDIR}/" ]
 
