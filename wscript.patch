@@ -1,0 +1,19 @@
+--- ./lib/ldb/wscript
++++ ./wscript
+@@ -501,16 +501,6 @@
+                          deps='cmocka ldb',
+                          install=False)
+
+-        bld.SAMBA_BINARY('test_ldb_qsort',
+-                         source='tests/test_ldb_qsort.c',
+-                         deps='cmocka ldb',
+-                         install=False)
+-
+-        bld.SAMBA_BINARY('test_ldb_dn',
+-                         source='tests/test_ldb_dn.c',
+-                         deps='cmocka ldb',
+-                         install=False)
+-
+         bld.SAMBA_BINARY('ldb_match_test',
+                          source='tests/ldb_match_test.c',
+                          deps='cmocka ldb',
