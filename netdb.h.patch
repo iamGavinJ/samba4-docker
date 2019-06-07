@@ -1,12 +1,19 @@
 --- /usr/include/netdb.h
 +++ ./netdb.h
-@@ -32,6 +32,9 @@
- #define AI_ADDRCONFIG   0x20
- #define AI_NUMERICSERV  0x400
+@@ -24,6 +24,16 @@
+ 	struct addrinfo *ai_next;
+ };
 
-+#define NETDB_INTERNAL  -1         /* See errno.  */
-+#define NETDB_SUCCESS   0          /* No problem.  */
-+#define NO_ADDRESS      NO_DATA    /* No address, look for MX record.  */
-
- #define NI_NUMERICHOST  0x01
- #define NI_NUMERICSERV  0x02
++#ifndef NETDB_INTERNAL
++#define NETDB_INTERNAL  -1
++#endif
++#ifndef NETDB_SUCCESS
++#define NETDB_SUCCESS   0
++#endif
++#ifndef NO_ADDRESS
++#define NO_ADDRESS      NO_DATA
++#endif
++
+ #define AI_PASSIVE      0x01
+ #define AI_CANONNAME    0x02
+ #define AI_NUMERICHOST  0x04
