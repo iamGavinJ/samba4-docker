@@ -1,5 +1,5 @@
---- /usr/include/netdb.h
-+++ ./netdb.h
+--- netdb.h
++++ /usr/include/netdb.h
 @@ -24,6 +24,16 @@
  	struct addrinfo *ai_next;
  };
