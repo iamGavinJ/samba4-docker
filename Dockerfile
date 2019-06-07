@@ -46,7 +46,7 @@ RUN \
 
 RUN \
     printf "**** extract source ****\n" && \
-    curl -L -o - --url https://download.samba.org/pub/samba/stable/samba-${SMB_VERSION}.tar.gz | tar x -vz --strip-components=1 -f - -C "${BUILDDIR}" && \
+    curl -L -o - --url https://download.samba.org/pub/samba/stable/samba-${SMB_VERSION}.tar.gz | tar x -vz --strip-components=1 -f - -C "${BUILDDIR}"
 
 COPY [ "netdb.h.diff", "${WORKDIR}/" ]
 
