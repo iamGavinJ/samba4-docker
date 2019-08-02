@@ -7,12 +7,13 @@ services:
     environment:
       - TZ=America/Los_Angeles
     networks:
-      physical:
+      macvlan:
         ipv4_address: 10.1.0.9
     hostname: nas.corp.scurr.me
     volumes:
       - /zdata/Media:/Media
+      - ${PWD}/smb.conf:/opt/etc/smb.conf
 
 networks:
-  physical:
+  macvlan:
     external: true
